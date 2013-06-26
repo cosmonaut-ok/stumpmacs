@@ -1,28 +1,33 @@
-;;; -*- Mode: LISP; Syntax: Common-lisp; Package: stumpwm.modules.emacs -*-
+;;; -*- Mode: LISP; Syntax: Common-lisp; Package: stumpmacs -*-
+
+;; Copyright 2013 Alexander aka 'CosmonauT' Vynnyk
 ;;
-;; Copyright (C) 2003-2008 Shawn Betts
-;; Copyright (C) 2010-2012 Alexender aka CosmonauT Vynnyk
-;;
-;;  This file is part of stumpwm.
-;;
-;; stumpwm is free software; you can redistribute it and/or modify
+;; Author: Alexander aka CosmonauT Vynnyk <cosmonaut.ok@gmail.com>
+;; Version: id: web,v 2013.06.26 Jun 26 2013 cosmonaut.ok@gmail.com
+;; Keywords:
+;; X-URL: not distributed yet
+
+;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation; either version 2, or (at your option)
 ;; any later version.
-
-;; stumpwm is distributed in the hope that it will be useful,
+;;
+;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
-
+;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this software; see the file COPYING.  If not, see
-;; <http://www.gnu.org/licenses/>.
+;; along with this program; if not, write to the Free Software
+;; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+;;
+;;; Commentary:
 
-;; Commentary:
-;;
-;; define standard key bindings
-;;
+;;;==================================================================
+;;; Filename: bindings.lisp
+;;; Eamcs integration extension for stumpwm
+;;;==================================================================
+;;;
 ;; Code:
 
 (in-package #:stumpwm)

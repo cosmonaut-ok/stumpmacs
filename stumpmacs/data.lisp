@@ -1,9 +1,9 @@
 ;;; -*- Mode: LISP; Syntax: Common-lisp; Package: stumpwm.modules.emacs -*-
 
-;; Copyright 2011 Alexander aka 'CosmonauT' Vynnyk
+;; Copyright 2013 Alexander aka 'CosmonauT' Vynnyk
 ;;
 ;; Author: Alexander aka CosmonauT Vynnyk <cosmonaut.ok@gmail.com>
-;; Version: id: web,v 0.1 22 Apr 2013 cosmonaut.ok@gmail.com
+;; Version: id: web,v 2013.06.26 Jun 26 2013 cosmonaut.ok@gmail.com
 ;; Keywords:
 ;; X-URL: not distributed yet
 

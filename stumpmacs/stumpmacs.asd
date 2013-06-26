@@ -3,8 +3,8 @@
 
 (in-package :emacs-system)
 
-(defsystem :emacs
-  :name "EMACS"
+(defsystem :stumpmacs
+  :name "StumpMACS"
   :author "Alexander aka 'CosmonauT' Vynnyk"
   :version "2013.06.26"
   :maintainer "Alexander aka 'CosmonauT' Vynnyk"

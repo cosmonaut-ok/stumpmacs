@@ -3,7 +3,7 @@
 ;; Copyright 2013 Alexander aka 'CosmonauT' Vynnyk
 ;;
 ;; Author: Alexander aka CosmonauT Vynnyk <cosmonaut.ok@gmail.com>
-;; Version: id: web,v 0.1 26 Jun 2013 cosmonaut.ok@gmail.com
+;; Version: id: web,v 2013.06.26 26 Jun 2013 cosmonaut.ok@gmail.com
 ;; Keywords:
 ;; X-URL: not distributed yet
 
