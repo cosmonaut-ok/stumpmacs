@@ -24,22 +24,10 @@
 ;;; Commentary:
 
 ;;;==================================================================
-;;; Filename: package.lisp
+;;; Filename: client.lisp
 ;;; Eamcs integration extension for stumpwm
 ;;;==================================================================
 ;;;
-
-;;;; NEED:
-;; e-find-file
-;; e-swith-to-buffer +
-;; e-list-buffers +
-;; e-open-buffer +
-;; e-save-buffer +
-;; e-save-changed +
-;; e-write-file
-;; e-kill-buffer
-;; e-eval-expression 'PREF e :'
-;; e-execute-extended-command 'PREF e M-x'
 
 ;;; Code:
 
@@ -83,14 +71,12 @@
 
 ;;; StumpWM types
 (define-stumpwm-type :emacs-buffer (input prompt)
-  (let ((*current-input-history-slot* :emacs-buffer))
-    (or (argument-pop-rest input)
-	(completing-read (current-screen) prompt (list-buffers (current-daemon-or-start-one)) :require-match nil))))
+  (or (argument-pop-rest input)
+      (completing-read (current-screen) prompt (list-buffers (current-daemon-or-start-one)) :require-match nil)))
 
 (define-stumpwm-type :emacs-existent-buffer (input prompt)
-  (let ((*current-input-history-slot* :emacs-buffer))
-    (or (argument-pop-rest input)
-	(completing-read (current-screen) prompt (list-buffers (current-daemon-or-start-one)) :require-match t))))
+  (or (argument-pop-rest input)
+      (completing-read (current-screen) prompt (list-buffers (current-daemon-or-start-one)) :require-match t)))
 
 (define-stumpwm-type :emacs-commands (input prompt)
   (let ((cmds (or (emacs-commands (current-daemon))
@@ -100,8 +86,7 @@
 		    ";"
 		    (batch-on-emacs
 		     (current-daemon)
-		     "(mapatoms (lambda (x) (and (fboundp x) (commandp (symbol-function x)) (princ (concat (symbol-name x) \";\")))))")))))
-	(*current-input-history-slot* :emacs-commands))
+		     (get-cmd get-emacs-commands)))))))
     (or (argument-pop-rest input)
 	(completing-read (current-screen)
 			 prompt
@@ -188,7 +173,7 @@
 		    (concatenate 'string (nth 0 find-f-cmd) file (nth 1 find-f-cmd)) :new-frame t)))
 
 ;; Commands
-(defcommand e-find-file (file) ((:file "Input filename: "))
+(defcommand e-find-file (file) ((:rest "Input filename: "))
   "Open file in current emacs daemon"
   (find-file file (current-daemon)))
 

@@ -10,7 +10,7 @@ daemon configfile. Also it allows to manage many emacs daemons simultaneously
    via git: =git clone https://git.gitorious.org/dss-project/stumpmacs.git=
    or download and unpack tarball: =wget https://gitorious.org/dss-project/stumpmacs/archive-tarball/master -O stumpmacs.tar.gz; tar -xvf stumpmacs.tar.gz=
 
-+ Link loader to your contrib directory: =ln -s ~/src/dss-project-stumpmacs/loader.lisp ~/src/stumpwm/contrib/stumpmacs.lisp=
++ Put files from stumpmacs folder to your stumpwm contrib directory (you mast to get 'stumpmacs.org' file and 'stumpmacs' directory with other files
    
 + do in stumpwm load-module -> StumpMACS
 
@@ -83,6 +83,10 @@ _STUMPMACS PREFIX KEY: C-t C-e org C-t e. Marks "SPK" here_
 - (set-current-daemon emacs-daemon-instance)
   Changes current daemon to another (need, that daemon was in managed list)
   EXAMPLE: =(set-current-daemon (nth 4 (list-daemons)))=
+
+*** Useful variables
+- *show-system-buffers-p*
+  Show, or not system buffers (with '*' at the beginning and at the end)
 
 ** Hacking:
 Add commands for stumpwm-like splittings emacs frames:

@@ -38,6 +38,7 @@
 (set-arg no-wait "-n")
 (set-arg as-script "--script")
 (set-arg batch "--batch")
+(set-arg alt-configfile "-q -l")
 
 (set-cmd ping-daemon "t")
 (set-cmd stop-daemon "(kill-emacs)")
@@ -48,6 +49,6 @@
 (set-cmd write-file '("(and (switch-to-buffer \"" "\") (write-file \"" "\"))"))
 (set-cmd find-file '("(find-file \"" "\")"))
 (set-cmd execute-extended-command '( "(and (switch-to-buffer \"" "\") (" "))"))
-
+(set-cmd get-emacs-commands "(mapatoms (lambda (x) (and (fboundp x) (commandp (symbol-function x)) (princ (concat (symbol-name x) \";\")))))")
 
 ;;;; /set command-line parameters and commands for emacs

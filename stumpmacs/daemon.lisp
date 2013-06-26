@@ -29,13 +29,6 @@
 ;;;==================================================================
 ;;;
 
-;;; NEED:
-;; e-start-daemon name +
-;; e-stop-daemon name +
-;; e-restart-daemon name +
-;; e-switch-to-daemon name +
-;; e-list-daemons + alias e-daemons
-
 ;;; Code:
 
 (in-package :stumpmacs)
@@ -54,24 +47,22 @@
 
 ;; StumpWM types
 (define-stumpwm-type :emacs-daemon-name (input prompt)
-  (let ((*current-input-history-slot* :emacs-daemon-name))
-    (if (null (current-daemon))
-        (or (argument-pop input)
-	    (read-one-line (current-screen) prompt))
-      (or (argument-pop-rest input)
-	  (completing-read (current-screen) prompt (list-daemon-names) :initial-input (princ-to-string (emacs-name (current-daemon))))))))
+  (if (null (current-daemon))
+      (or (argument-pop input)
+	  (read-one-line (current-screen) prompt))
+    (or (argument-pop-rest input)
+	(completing-read (current-screen) prompt (list-daemon-names) :initial-input (princ-to-string (emacs-name (current-daemon)))))))
 
 (define-stumpwm-type :emacs-running-daemon-name (input prompt)
-  (let ((*current-input-history-slot* :emacs-daemon-name))
-    (or (argument-pop-rest input)
-    	(completing-read (current-screen) prompt (list-daemon-names) :require-match t))))
+  (or (argument-pop-rest input)
+      (completing-read (current-screen) prompt (list-daemon-names) :require-match t)))
 
 (defmethod ping-daemon ((emacs emacs))
   (let ((client (emacs-client emacs))
 	(exec (get-arg exec))
-	(socket (gethash 'socket *emacs-arg-hash*))
+	(socket (get-arg socket))
 	(name (princ-to-string (emacs-name emacs)))
-    	(ping (concatenate 'string "'" (gethash 'ping-daemon *emacs-cmd-hash*) "'")))
+    	(ping (concatenate 'string "'" (get-cmd ping-daemon) "'")))
     (when
 	(equal (format nil "t~%")
 	       (run-shell-command
@@ -79,11 +70,16 @@
       emacs)))
 
 (defmethod start-daemon ((emacs emacs))
-  (let* ((cmd (emacs-daemon emacs))
-	 (name (princ-to-string (emacs-name emacs)))
-	 (args
-	  (concatenate 'string (emacs-daemon-args emacs)
-		       " " "--daemon=" name)))
+  (flet ((with-alt-config ()
+                          (if (not (null (emacs-configfile emacs)))
+                            (format nil "~a ~a"
+                                    (get-arg alt-configfile) (emacs-configfile emacs))
+                            (format nil ""))))
+        (let* ((cmd (emacs-daemon emacs))
+               (name (princ-to-string (emacs-name emacs)))
+               (args
+                (concatenate 'string (emacs-daemon-args emacs)
+		       " " "--daemon=" name " " (with-alt-config))))
     (if (not (ping-daemon emacs))
 	(progn
 	  (run-shell-command
@@ -94,7 +90,7 @@
 	      (progn
 		(message "Daemon ~a started successful" name) emacs)
 	    (message "Failed to start ~a" name)))
-      (message (format nil "Instance ~a already running" name)))))
+      (message (format nil "Instance ~a already running" name))))))
 
 (defmethod ping-or-start-daemon ((emacs emacs))
   (if (not (ping-daemon emacs))

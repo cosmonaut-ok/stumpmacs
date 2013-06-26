@@ -41,9 +41,9 @@
 (format t "~a" *my-dirname*)
 
 (and
- (load (merge-pathnames "package.lisp" *my-dirname*))
- (load (merge-pathnames "emacs.lisp" *my-dirname*))
- (load (merge-pathnames "data.lisp" *my-dirname*))
- (load (merge-pathnames "daemon.lisp" *my-dirname*))
- (load (merge-pathnames "client.lisp" *my-dirname*))
- (load (merge-pathnames "bindings.lisp" *my-dirname*)))
+ (load (merge-pathnames "stumpmacs/package.lisp" *my-dirname*))
+ (load (merge-pathnames "stumpmacs/emacs.lisp" *my-dirname*))
+ (load (merge-pathnames "stumpmacs/data.lisp" *my-dirname*))
+ (load (merge-pathnames "stumpmacs/daemon.lisp" *my-dirname*))
+ (load (merge-pathnames "stumpmacs/client.lisp" *my-dirname*))
+ (load (merge-pathnames "stumpmacs/bindings.lisp" *my-dirname*)))

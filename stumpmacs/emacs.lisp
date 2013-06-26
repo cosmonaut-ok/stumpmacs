@@ -98,7 +98,7 @@
 	 (car list))
 	(t (member-emacs-daemon-name name (cdr list)))))
 
-(defun make-emacs (&key name daemon daemon-args client client-args)
+(defun make-emacs (&key name daemon daemon-args client client-args configfile)
   "Initialization function"
   (let ((instance (make-instance 'emacs)))
     (when (not (null name))
@@ -111,6 +111,8 @@
       (setf (emacs-client instance) client))
     (when (not (null client-args))
       (setf (emacs-client-args instance) client-args))
+    (when (not (null configfile))
+      (setf (emacs-configfile instance) configfile))
     (pushnew instance *emacs-instances-list* :test #'equal-emacs-daemon-names)
     instance))
 ;;;; /common functions
