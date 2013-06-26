@@ -26,10 +26,15 @@
 ;;; Code:
 
 (defpackage stumpmacs-loader
-  (:use :cl :dswm))
+  (:use :cl :stumpwm))
 
 (in-package :stumpmacs-loader)
 
+(defun dirname (pathname)
+  "Returns dirname of path"
+  (make-pathname :directory
+                 (pathname-directory
+                  (pathname pathname))))
 
 (defvar *my-dirname* (dirname *load-pathname*))
 
@@ -41,4 +46,4 @@
  (load (merge-pathnames "data.lisp" *my-dirname*))
  (load (merge-pathnames "daemon.lisp" *my-dirname*))
  (load (merge-pathnames "client.lisp" *my-dirname*))
- (load (merge-pathnames "bingings.lisp" *my-dirname*)))
+ (load (merge-pathnames "bindings.lisp" *my-dirname*)))

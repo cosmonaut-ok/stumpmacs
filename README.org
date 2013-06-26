@@ -1,0 +1,110 @@
+StumpMACS is an EMACS integration module for stumpWM, which is the frontend around emacs daemon and emacsclient
+
+Description: StumpMACS starts emacs daemon, and then runs on it commands, using emacsclient. You can
+control almost of emacs daemon parameters, like start, stop, restart it, insert extra arguments to
+daemon and client, choose emacs daemon and client paths, emacs daemon instance name and choose
+daemon configfile. Also it allows to manage many emacs daemons simultaneously
+
+** Loading:
++ Download module: 
+   via git: =git clone https://git.gitorious.org/dss-project/stumpmacs.git=
+   or download and unpack tarball: =wget https://gitorious.org/dss-project/stumpmacs/archive-tarball/master -O stumpmacs.tar.gz; tar -xvf stumpmacs.tar.gz=
+
++ Link loader to your contrib directory: =ln -s ~/src/dss-project-stumpmacs/loader.lisp ~/src/stumpwm/contrib/stumpmacs.lisp=
+   
++ do in stumpwm load-module -> StumpMACS
+
++ Enjoy
+
+** Working:
+_STUMPMACS PREFIX KEY: C-t C-e org C-t e. Marks "SPK" here_
+
+*** Dictionary:
+- Start/stop/restart daemon 
+  commands: =e-start-daemon= =e-stop-daemon= =e-restart-daemon=
+- Switch between daemons 
+  commands: =e-list-daemons= =e-daemons= =e-switch-to-daemon=
+- List buffers of current daemon
+  command: =e-list-buffers= =e-switch-to-buffer=
+  key: SPK C-b
+- Open buffer in current daemon
+  command: =e-open-fuffer=
+  key: SPK b
+- Open file in current daemon
+  command: =e-find-file=
+  key: SPK f
+- Save buffer in current daemon
+  command: =e-save-buffer=
+  key: SPK C-s
+- Save all unsaved buffers, associated with files in current daemon
+  command: =e-save-some-buffers=
+  key: SPK s
+- Write current buffer in current daemon to different file 
+  command: =e-write-file=
+  key: SPK w
+- Kill buffer in current daemon
+  command: =e-kill-buffer=
+  key: SPK k
+- Eval any code at daemon
+  command: =e-eval-expression=
+- Execute emacs command at daemon
+  command: =e-execute-extended-command=
+- Connect emacsclient to currend daemon and open new window
+  command: =e-connect=
+  key: SPK C-e
+- Insert "Control+e" into other applications 
+  key: SPK e
+
+*** Useful functions:
+- (make-emacs &key name daemon daemon-args client client-args)
+  Adds daemon to managed daemons list
+  Args:
+  *name* - instance name
+  *daemon*, *client* - emacs daemon and client paths
+  *daemon-args*, *client-args* - emacs daemon and client extra arguments (generic arguments, like
+  "--daemon" for emacs daemon and "-s daemon_name" for client, adds automatic)
+  EXAMPLE:
+  =(make-emacs :name "development" :daemon "/opt/emacs/current/bin/emacs" :daemon-args "--debug-init" :client "/opt/emacs/current/bin/emacsclient")=
+  Also you can add emacs daemon to managed daemons list using command =e-start-server=
+- (current-daemon)
+  Returns current managed emacs daemon instance
+- (list-daemons)
+  Returns list of managed daemons
+- (list-buffers emacs-daemon-instance)
+  Returns buffers list at daemon
+  EXAMPLE: =(list-buffers (current-daemon))=
+- (current-buffer emacs-daemon-instance)
+  Returns current buffer at daemon
+  EXAMPLE: =(current-buffer (current-daemon))=
+- (ping-daemon emacs-daemon-instance)
+  Pings daemon. Returns NIL, if it not running and it`s instance, when daemon is running
+  (also, thereis a good function =(ping-or-start-daemon emacs-daemon-instance)= )
+  EXAMPLE: =(ping-daemon (current-daemon))=
+- (set-current-daemon emacs-daemon-instance)
+  Changes current daemon to another (need, that daemon was in managed list)
+  EXAMPLE: =(set-current-daemon (nth 4 (list-daemons)))=
+
+** Hacking:
+Add commands for stumpwm-like splittings emacs frames:
+
+#+BEGIN_SRC common-lisp
+(in-package :stumpmacs)
+
+(set-command vsplit "(split-window-vertically)")
+(set-command hsplit "(split-window-horizontally)")
+(set-command remove "(delete-other-windows)")
+(set-command only "(delete-window)")
+
+(defcommand e-vsplit () ()
+  (eval-on-daemon (current-daemon) (get-command vsplit)))
+
+(defcommand e-hsplit () ()
+  (eval-on-daemon (current-daemon) (get-command hsplit)))
+
+(defcommand e-remove () ()
+  (eval-on-daemon (current-daemon) (get-command remove)))
+
+(defcommand e-only () ()
+  (eval-on-daemon (current-daemon) (get-command only)))
+#+END_SRC
+

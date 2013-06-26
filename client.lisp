@@ -114,7 +114,7 @@
   (car (list-buffers emacs)))
 
 ;; (defun switch-to-buffer-from-menu ()
-;;   (let ((buffer (select-from-menu (current-screen)
+;;   (let ((buffer (stumpwm::select-from-menu (current-screen)
 ;; 				  (list-buffers (current-daemon-or-start-one))))
 ;; 	(switch-to-buffer (get-cmd switch-to-buffer)))
 ;;     (eval-on-daemon
@@ -138,7 +138,7 @@
 
 (defmethod switch-to-buffer-from-menu ((emacs emacs) &optional new-frame)
   "Switches emacs daemon to needed buffer from menu"
-  (let ((buffer (select-from-menu (current-screen) (list-buffers emacs))))
+  (let ((buffer (stumpwm::select-from-menu (current-screen) (list-buffers emacs))))
     (when (not (null buffer))
       (switch-to-buffer buffer emacs new-frame))))
 
@@ -165,7 +165,7 @@
 (defmethod kill-buffer-from-menu ((emacs emacs))
   "Kills buffer at daemon"
   (kill-buffer
-   (select-from-menu (current-screen) (list-buffers emacs)) emacs))
+   (stumpwm::select-from-menu (current-screen) (list-buffers emacs)) emacs))
 
 (defmethod save-some-buffers ((emacs emacs))
   "Save modified buffers, associated with files"
@@ -199,7 +199,7 @@
 (defcommand e-list-buffers () ()
   "Docstring"
   (let* ((emacs (current-daemon-or-start-one))
-	 (buffer (select-from-menu (current-screen)
+	 (buffer (stumpwm::select-from-menu (current-screen)
 				   (list-buffers emacs)))
 	 (switch-to-buffer (get-cmd switch-to-buffer)))
     (when (not (null buffer))

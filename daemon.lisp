@@ -200,7 +200,7 @@
 
 (defcommand e-list-daemons () ()
   (let ((instance (member-emacs-daemon-name
-		   (select-from-menu (current-screen) (list-daemon-names))
+		   (stumpwm::select-from-menu (current-screen) (list-daemon-names))
 		   *emacs-instances-list*)))
     (when (not (null instance))
       (if (set-current-daemon instance)
