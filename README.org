@@ -17,7 +17,7 @@ daemon configfile. Also it allows to manage many emacs daemons simultaneously
 + Enjoy
 
 ** Working:
-_STUMPMACS PREFIX KEY: C-t C-e org C-t e. Marks "SPK" here_
+_STUMPMACS PREFIX KEY: C-t C-e or C-t e. Marks "SPK" here_
 
 *** Dictionary:
 - Start/stop/restart daemon 
@@ -25,7 +25,7 @@ _STUMPMACS PREFIX KEY: C-t C-e org C-t e. Marks "SPK" here_
 - Switch between daemons 
   commands: =e-list-daemons= =e-daemons= =e-switch-to-daemon=
 - List buffers of current daemon
-  command: =e-list-buffers= =e-switch-to-buffer=
+  commands: =e-list-buffers= =e-switch-to-buffer=
   key: SPK C-b
 - Open buffer in current daemon
   command: =e-open-fuffer=
