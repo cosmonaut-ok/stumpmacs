@@ -57,7 +57,8 @@ _STUMPMACS PREFIX KEY: C-t C-e or C-t e. Marks "SPK" here_
 
 *** Useful functions:
 - (make-emacs &key name daemon daemon-args client client-args)
-  Adds daemon to managed daemons list
+  Adds daemon to managed daemons list (you don't need to start emacs daemon separately.
+  StumpMACS will start it automatic)
   Args:
   *name* - instance name
   *daemon*, *client* - emacs daemon and client paths
